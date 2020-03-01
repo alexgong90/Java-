@@ -9,6 +9,7 @@ package com.gc.linkedlist;
  * <p>
  * tip 1： 头节点不要动，动了，整个链表就变化了
  * tip 2: 你只能指一个node，但是可以被很多node指
+ * tip 3: 查找方向只能是一个， 且不能用待删除节点自我删除，删除节点需要辅助节点
  */
 public class SingleLinkedList {
     /**

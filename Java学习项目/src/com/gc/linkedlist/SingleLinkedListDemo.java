@@ -1,6 +1,7 @@
 package com.gc.linkedlist;
 
 import com.sun.istack.internal.Nullable;
+import jdk.management.resource.internal.inst.DatagramDispatcherRMHooks;
 
 public class SingleLinkedListDemo {
     public static void main(String[] args) {
@@ -27,14 +28,49 @@ public class SingleLinkedListDemo {
 //        singleLinkedListReverse(singleLinkedList);
         System.out.println("---------------------");
 
-        list(reverse(singleLinkedList.head));
+//        list(practiceReverseWithHead(singleLinkedList.head));
+
+        HeroNode firstNode = practiceReverseWithoutHead(singleLinkedList.head.next);
+        HeroNode listHead = new HeroNode(0, "", "");
+        listHead.next = firstNode;
+        list(listHead);
         System.out.println("---------------------");
         list(singleLinkedList.head);
     }
 
+    private static HeroNode practiceReverseWithHead(HeroNode head) {
+        HeroNode lastNodeHead = new HeroNode(0, "", "");
+        HeroNode cur = head.next;
+        lastNodeHead.next = cur;
+        if (cur == null) {
+            return head;
+        }
+        if (cur.next == null) {
+            return lastNodeHead;
+        }
+
+        HeroNode result = practiceReverseWithHead(head.next);
+        //cur is last node , and head is  last third node
+        head.next.next.next = head;
+        head.next.next = null;
+        return result;
+    }
+
+    private static HeroNode practiceReverseWithoutHead(HeroNode head) {
+        if(head == null) return null;
+        if (head.next == null) {
+            return head;
+        }
+        HeroNode lastNode = practiceReverseWithoutHead(head.next);
+        head.next.next = head;
+        head.next = null;
+
+        return lastNode;
+    }
+
+
     private static HeroNode reverse(HeroNode head) {
         HeroNode lastNode = new HeroNode(0, "x", "x");
-
         HeroNode cur = head.next;
         lastNode.next = cur;
         if (cur.next == null) {
@@ -46,7 +82,6 @@ public class SingleLinkedListDemo {
 
         return result;
     }
-
 
 
     private static void list(@Nullable HeroNode head) {
